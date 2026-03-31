@@ -1,25 +1,16 @@
 <?php
 
 $students = [
-    [
-        "ism" => "Ali",
-        "baholar" => [5, 4, 3, 5]
-    ],
-    [
-        "ism" => "Vali",
-        "baholar" => [3, 3, 4, 2]
-    ],
-    [
-        "ism" => "Sami",
-        "baholar" => [5, 5, 5, 4]
-    ],
+    ["ism" => "Ali", "baholar" => [5, 4, 3, 5]],
+    ["ism" => "Vali", "baholar" => [3, 3, 4, 2]],
+    ["ism" => "Sami", "baholar" => [5, 5, 5, 4]],
 ];
 
-$maxAvg = 0;
-$topStudent = "";
+$max = 0;
+$top = "";
 
-$minAvg = 100;
-$worstStudent = "";
+$min = 100;
+$worst = "";
 
 foreach ($students as $student) {
 
@@ -27,48 +18,48 @@ foreach ($students as $student) {
 
     $i = 0;
     $sum = 0;
-    $count = count($baholar);
 
-    while ($i < $count) {
-        $sum += $baholar[$i];
+    while ($i < count($baholar)) {
+        $sum = $sum + $baholar[$i];
         $i++;
     }
 
-    $avg = $sum / $count;
+    $avg = $sum / count($baholar);
 
     if ($avg >= 4.5) {
         $status = "A'lo";
-    } elseif ($avg >= 3.5) {
+    } else if ($avg >= 3.5) {
         $status = "Yaxshi";
-    } elseif ($avg >= 2.5) {
+    } else if ($avg >= 2.5) {
         $status = "Qoniqarli";
     } else {
         $status = "Yomon";
     }
 
-    $grade = match($status) {
-        "A'lo" => "A",
-        "Yaxshi" => "B",
-        "Qoniqarli" => "C",
-        "Yomon" => "D",
-    };
+    if ($status == "A'lo") {
+        $grade = "A";
+    } else if ($status == "Yaxshi") {
+        $grade = "B";
+    } else if ($status == "Qoniqarli") {
+        $grade = "C";
+    } else {
+        $grade = "D";
+    }
 
-    echo $student["ism"] . " - " . round($avg, 2) . " - " . $status . " - " . $grade . "<br>";
+    echo $student["ism"] . " - " . $avg . " - " . $status . " - " . $grade . "<br>";
 
     for ($j = 0; $j < 1; $j++) {
-        if ($avg > $maxAvg) {
-            $maxAvg = $avg;
-            $topStudent = $student["ism"];
+        if ($avg > $max) {
+            $max = $avg;
+            $top = $student["ism"];
         }
     }
 
-    if ($avg < $minAvg) {
-        $minAvg = $avg;
-        $worstStudent = $student["ism"];
+    if ($avg < $min) {
+        $min = $avg;
+        $worst = $student["ism"];
     }
 }
-
-echo "<br>🏆 Eng kuchli student: $topStudent ($maxAvg)";
-echo "<br>💀 Eng past student: $worstStudent ($minAvg)";
-
+echo "<br>Eng kuchli: $top ($max)";
+echo "<br>Eng past: $worst ($min)";
 ?>
